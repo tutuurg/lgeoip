@@ -218,7 +218,7 @@ Test the service by:
 ```text
 MIT License
 
-Copyright (c) 2026 Zakhar Lasitski
+Copyright (c) 2026 tutuurg (https://github.com/tutuurg)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
