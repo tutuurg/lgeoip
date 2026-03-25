@@ -18,6 +18,10 @@
       --card-radius: 18px;
       --safe-area-top: env(safe-area-inset-top, 0px);
       --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+      --modal-bg: #ffffff;
+      --modal-text: #000000;
+      --modal-muted: #6b7280;
+      --modal-border: rgba(0,0,0,0.08);
     }
     *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
     html,body{height:100%;margin:0;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, system-ui, sans-serif;color:var(--fg);background:var(--bg);font-size: 16px;line-height: 1.5;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
@@ -140,6 +144,40 @@
       margin:8px 0 0;
     }
 
+    /* AI Analysis Block */
+    .ai-analysis-block{
+      margin-top:clamp(12px, 3vw, 18px);
+      padding:clamp(10px, 2vw, 12px);
+      border-radius:10px;
+      background:linear-gradient(135deg, rgba(0,87,250,0.05), rgba(0,87,250,0.02));
+      border:1px solid rgba(0,87,250,0.2);
+    }
+    .ai-title{
+      font-size:clamp(13px, 3vw, 14px);
+      font-weight:600;
+      margin-bottom:8px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      color:var(--accent);
+    }
+    .ai-badge{
+      background:var(--accent);
+      color:white;
+      padding:2px 8px;
+      border-radius:12px;
+      font-size:10px;
+      font-weight:600;
+    }
+    .ai-content{
+      font-size:clamp(12px, 2.5vw, 13px);
+      line-height:1.5;
+    }
+    .ai-not-available{
+      color:var(--muted);
+      font-style:italic;
+    }
+
     /* Right column */
     .right{position:relative;}
     .map-frame{
@@ -157,6 +195,35 @@
       gap:10px;
       align-items:center;
       margin-top:clamp(12px, 3vw, 16px);
+    }
+    .ai-checkbox-wrapper{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      background:rgba(0,87,250,0.05);
+      border-radius:10px;
+      border:1px solid rgba(0,87,250,0.15);
+      cursor:pointer;
+      transition:all 0.2s;
+    }
+    .ai-checkbox-wrapper:hover{
+      background:rgba(0,87,250,0.1);
+    }
+    .ai-checkbox-wrapper input{
+      width:18px;
+      height:18px;
+      cursor:pointer;
+      margin:0;
+    }
+    .ai-checkbox-wrapper label{
+      cursor:pointer;
+      font-weight:500;
+      font-size:clamp(13px, 3vw, 14px);
+      background:linear-gradient(135deg, var(--accent), #8b5cf6);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
     }
     input[type="text"]{
       flex:1 1 200px;
@@ -190,42 +257,6 @@
       border:1px solid rgba(0,0,0,0.06);
     }
     button.ghost:hover{background:rgba(0,87,250,0.05);}
-
-    /* AI Mode Checkbox */
-    .ai-mode-checkbox {
-      margin-top:12px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:10px;
-      border-radius:10px;
-      background:linear-gradient(135deg, rgba(0,87,250,0.05), rgba(0,87,250,0.02));
-      border:1px solid rgba(0,87,250,0.2);
-    }
-    .ai-mode-checkbox label {
-      display:flex;
-      align-items:center;
-      gap:8px;
-      cursor:pointer;
-      font-weight:500;
-      font-size:clamp(13px, 3vw, 14px);
-      color:var(--fg);
-    }
-    .ai-mode-checkbox input {
-      width:18px;
-      height:18px;
-      cursor:pointer;
-      margin:0;
-    }
-    .ai-badge {
-      background:linear-gradient(135deg, var(--accent), #8b5cf6);
-      padding:2px 8px;
-      border-radius:20px;
-      font-size:11px;
-      font-weight:600;
-      color:white;
-      margin-left:6px;
-    }
 
     /* Raw JSON panel */
     .json-box{
@@ -294,7 +325,9 @@
       .wrap{padding:12px;}
       .grid{gap:16px;}
       .info-grid{grid-template-columns:1fr;}
+      .controls{flex-direction:column;}
       .controls > * {flex: 1 1 100%;}
+      .ai-checkbox-wrapper{justify-content:center;}
       .ip-row{flex-direction:column;align-items:flex-start;}
       .ip-row > div:last-child{text-align:left;width:100%;}
       header{gap:8px;}
@@ -331,13 +364,17 @@
       .info-grid{grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));}
     }
 
-    /* Dark mode support */
+    /* Dark mode support - исправлено для модальных окон */
     @media (prefers-color-scheme: dark){
       :root{
         --bg: #0f0f0f;
         --fg: #ffffff;
         --muted: #a0a0a0;
         --glass: rgba(15,15,15,0.7);
+        --modal-bg: #1a1a1a;
+        --modal-text: #ffffff;
+        --modal-muted: #a0a0a0;
+        --modal-border: rgba(255,255,255,0.1);
       }
       .card, header{
         background:linear-gradient(180deg, rgba(30,30,30,0.6), rgba(30,30,30,0.9));
@@ -346,6 +383,10 @@
       .info-item, .anonymization-block{
         background:rgba(40,40,40,0.8);
         border-color:rgba(255,255,255,0.05);
+      }
+      .ai-analysis-block{
+        background:linear-gradient(135deg, rgba(0,87,250,0.1), rgba(0,87,250,0.05));
+        border-color:rgba(0,87,250,0.3);
       }
       input[type="text"]{
         background:rgba(40,40,40,0.8);
@@ -443,7 +484,7 @@
       }
     }
 
-    /* --- CONSENT MODAL (Fixed for dark mode) --- */
+    /* --- CONSENT MODAL - ИСПРАВЛЕНО --- */
     .consent-overlay {
       position: fixed;
       top: 0;
@@ -451,8 +492,8 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.8);
-      backdrop-filter:blur(10px);
-      -webkit-backdrop-filter:blur(10px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       z-index: 9999;
       display: flex;
       align-items: center;
@@ -469,18 +510,19 @@
     }
 
     .consent-modal {
-      background: var(--bg);
+      background: var(--modal-bg);
       padding: clamp(20px, 5vw, 30px);
       border-radius: clamp(16px, 4vw, 24px);
       max-width: min(500px, 90vw);
       width: 100%;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      border: 1px solid rgba(0,0,0,0.08);
+      border: 1px solid var(--modal-border);
       text-align: center;
       animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       max-height: 90vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+      color: var(--modal-text);
     }
 
     @keyframes modalPop {
@@ -498,28 +540,16 @@
       font-size: clamp(18px, 4.5vw, 22px);
       font-weight: 700;
       margin-bottom: 10px;
-      color: var(--fg);
+      color: var(--modal-text);
       line-height: 1.3;
     }
 
     .consent-text {
       font-size: clamp(14px, 3.5vw, 15px);
-      color: var(--muted);
+      color: var(--modal-muted);
       line-height: 1.5;
       margin-bottom: 20px;
       text-align: left;
-    }
-
-    .consent-text p {
-      color: var(--muted);
-    }
-
-    .consent-text strong {
-      color: var(--accent);
-    }
-
-    .consent-text p:first-child {
-      margin-top: 0;
     }
 
     .consent-actions {
@@ -556,7 +586,7 @@
       text-decoration: underline;
     }
 
-    /* --- AI MODAL (Consent for AI mode) --- */
+    /* --- AI CONSENT MODAL --- */
     .ai-consent-overlay {
       position: fixed;
       top: 0;
@@ -579,58 +609,64 @@
     }
 
     .ai-consent-modal {
-      background: var(--bg);
+      background: var(--modal-bg);
       padding: clamp(20px, 5vw, 30px);
       border-radius: clamp(16px, 4vw, 24px);
       max-width: min(500px, 90vw);
       width: 100%;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      border: 1px solid rgba(0,0,0,0.08);
+      border: 1px solid var(--modal-border);
       text-align: center;
       animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       max-height: 90vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+      color: var(--modal-text);
     }
 
     .ai-consent-icon {
-      font-size: clamp(40px, 10vw, 50px);
-      margin-bottom: 15px;
+      font-size: clamp(32px, 8vw, 40px);
+      margin-bottom: 12px;
       display: inline-block;
     }
 
     .ai-consent-title {
-      font-size: clamp(20px, 5vw, 24px);
+      font-size: clamp(18px, 4.5vw, 22px);
       font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--fg);
+      margin-bottom: 10px;
+      color: var(--modal-text);
       line-height: 1.3;
     }
 
     .ai-consent-text {
-      font-size: clamp(14px, 3.5vw, 16px);
-      color: var(--muted);
+      font-size: clamp(14px, 3.5vw, 15px);
+      color: var(--modal-muted);
       line-height: 1.5;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       text-align: left;
     }
 
-    .data-collection-list {
-      background: rgba(0,87,250,0.08);
-      padding: 12px 20px;
+    .ai-consent-data-list {
+      background: rgba(0,87,250,0.1);
+      padding: 15px;
       border-radius: 12px;
       margin: 15px 0;
       text-align: left;
     }
 
-    .data-collection-list ul {
-      margin: 8px 0 0 0;
-      padding-left: 20px;
+    .ai-consent-data-list p {
+      margin: 5px 0;
+      font-weight: 500;
     }
 
-    .data-collection-list li {
-      margin: 8px 0;
-      color: var(--fg);
+    .ai-consent-data-list ul {
+      margin: 8px 0 0 20px;
+      padding-left: 0;
+    }
+
+    .ai-consent-data-list li {
+      margin: 5px 0;
+      color: var(--modal-text);
     }
 
     .btn-ai-agree {
@@ -643,30 +679,19 @@
       border-radius: 12px;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 12px;
+      margin-bottom: 10px;
     }
     
-    .btn-ai-agree:hover {
-      opacity: 0.9;
-    }
-
     .btn-ai-cancel {
       width: 100%;
       padding: clamp(12px, 3vw, 14px);
       font-size: clamp(15px, 3.5vw, 16px);
       background: transparent;
       color: var(--muted);
-      border: 1px solid rgba(0,0,0,0.2);
+      border: 1px solid var(--modal-border);
       border-radius: 12px;
       font-weight: 500;
       cursor: pointer;
-      margin-top: 8px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .btn-ai-cancel {
-        border-color: rgba(255,255,255,0.2);
-      }
     }
 
     /* --- SERVICE UNAVAILABLE MODAL --- */
@@ -692,18 +717,19 @@
     }
 
     .service-unavailable-modal {
-      background: var(--bg);
+      background: var(--modal-bg);
       padding: clamp(20px, 5vw, 30px);
       border-radius: clamp(16px, 4vw, 24px);
       max-width: min(500px, 90vw);
       width: 100%;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      border: 1px solid rgba(0,0,0,0.08);
+      border: 1px solid var(--modal-border);
       text-align: center;
       animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       max-height: 90vh;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+      color: var(--modal-text);
     }
 
     .service-unavailable-icon {
@@ -716,20 +742,20 @@
       font-size: clamp(20px, 5vw, 24px);
       font-weight: 700;
       margin-bottom: 12px;
-      color: #d32f2f;
+      color: #ef4444;
       line-height: 1.3;
     }
 
     .service-unavailable-text {
       font-size: clamp(14px, 3.5vw, 16px);
-      color: var(--muted);
+      color: var(--modal-muted);
       line-height: 1.5;
       margin-bottom: 15px;
     }
 
     .service-unavailable-details {
       font-size: clamp(13px, 3vw, 14px);
-      color: var(--muted);
+      color: var(--modal-muted);
       background: rgba(0,0,0,0.05);
       padding: 10px;
       border-radius: 8px;
@@ -762,7 +788,7 @@
     
     /* Accessibility improvements */
     @media (prefers-reduced-motion: reduce) {
-      .card, .consent-modal, .service-unavailable-modal, .ai-consent-modal, .logo-anim::after {
+      .card, .consent-modal, .service-unavailable-modal, .logo-anim::after, .ai-consent-modal {
         animation: none;
         transition: none;
       }
@@ -806,7 +832,7 @@
     </div>
   </div>
 
-  <!-- CONSENT OVERLAY (FIXED) -->
+  <!-- CONSENT OVERLAY (ИСПРАВЛЕНО) -->
   <div id="consentOverlay" class="consent-overlay">
     <div class="consent-modal">
       <div class="consent-icon">🛡️</div>
@@ -827,27 +853,27 @@
     </div>
   </div>
 
-  <!-- AI CONSENT MODAL -->
+  <!-- AI CONSENT OVERLAY -->
   <div id="aiConsentOverlay" class="ai-consent-overlay">
     <div class="ai-consent-modal">
-      <div class="ai-consent-icon">✨</div>
-      <div class="ai-consent-title">Анализ с lgeoAI</div>
+      <div class="ai-consent-icon">🤖✨</div>
+      <div class="ai-consent-title">Анализ с ✦lgeoAI (Бета)</div>
       <div class="ai-consent-text">
-        <p>ИИ-режим позволяет получить расширенный анализ факторов анонимизации с использованием локальной нейросети.</p>
-        <div class="data-collection-list">
-          <strong style="color: var(--accent);">Собираемые данные для обучения модели:</strong>
+        <p>ИИ-режим использует искусственный интеллект для более глубокого анализа анонимизации IP-адресов.</p>
+        <div class="ai-consent-data-list">
+          <p><strong>📊 Для обучения локальной ИИ модели собираются следующие данные:</strong></p>
           <ul>
-            <li>📊 Факторы, указывающие на использование средств анонимизации (VPN, Proxy, Tor)</li>
-            <li>🌐 Особенности сетевого поведения и маршрутизации</li>
-            <li>🔄 Аномалии в геолокационных данных</li>
-            <li>📈 Статистические паттерны IP-адресов</li>
+            <li>Факторы, указывающие на использование средств анонимизации (прокси, VPN, Tor)</li>
+            <li>Результаты анализа анонимизации</li>
+            <li>Технические параметры соединения</li>
           </ul>
+          <p style="margin-top: 10px; font-size: 12px;">⚠️ Данные используются <strong>исключительно для обучения локальной ИИ модели</strong> и не передаются третьим лицам.</p>
         </div>
-        <p style="font-size: 13px; margin-top: 10px;">Сбор данных осуществляется <strong>исключительно для обучения локальной ИИ модели</strong> и не передается третьим лицам.</p>
+        <p style="margin-top: 10px;">Нажимая «Активировать ИИ-режим», вы даете согласие на сбор указанных данных.</p>
       </div>
       <div class="consent-actions">
-        <button id="btnAiAgree" class="btn-ai-agree">Включить ИИ-режим</button>
-        <button id="btnAiCancel" class="btn-ai-cancel">Отмена</button>
+        <button id="btnAIAgree" class="btn-ai-agree">Активировать ИИ-режим</button>
+        <button id="btnAICancel" class="btn-ai-cancel">Отмена</button>
       </div>
     </div>
   </div>
@@ -889,19 +915,24 @@
             <ul class="anonymization-reasons" id="anonReasons"></ul>
           </div>
 
+          <!-- AI Analysis Block -->
+          <div class="ai-analysis-block" id="aiAnalysisBlock" style="display: none;">
+            <div class="ai-title">
+              🤖 Анализ ✦lgeoAI <span class="ai-badge">Бета</span>
+            </div>
+            <div class="ai-content" id="aiContent">
+              <!-- AI analysis results will be inserted here -->
+            </div>
+          </div>
+
           <div class="controls">
+            <div class="ai-checkbox-wrapper" id="aiCheckboxWrapper">
+              <input type="checkbox" id="aiModeCheckbox" />
+              <label for="aiModeCheckbox">Анализ с ✦lgeoAI (Бета)</label>
+            </div>
             <input id="ipInput" type="text" placeholder="Проверить другой IP (например 8.8.8.8)" aria-label="IP" />
             <button id="checkBtn">Проверить</button>
             <button id="copyBtn" class="ghost">Копировать JSON</button>
-          </div>
-
-          <!-- AI Mode Checkbox -->
-          <div class="ai-mode-checkbox" id="aiModeContainer">
-            <label>
-              <input type="checkbox" id="aiModeCheckbox" disabled />
-              <span>Анализ с <strong>✦lgeoAI</strong></span>
-              <span class="ai-badge">Бета</span>
-            </label>
           </div>
 
           <div class="json-box" id="rawJson" hidden></div>
@@ -965,23 +996,23 @@
     let currentUserIP = null;
     const browserTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const CONSENT_KEY = 'ip_processing_consent_given';
-    const AI_CONSENT_KEY = 'lgeoai_consent_given';
+    const AI_CONSENT_KEY = 'ai_mode_consent_given';
 
     // UI Elements
     const consentOverlay = document.getElementById('consentOverlay');
+    const aiConsentOverlay = document.getElementById('aiConsentOverlay');
     const serviceUnavailableOverlay = document.getElementById('serviceUnavailableOverlay');
     const unavailableDetails = document.getElementById('unavailableDetails');
     const btnAgree = document.getElementById('btnAgree');
+    const btnAIAgree = document.getElementById('btnAIAgree');
+    const btnAICancel = document.getElementById('btnAICancel');
     const retryBtn = document.getElementById('retryBtn');
     const withdrawConsentBtn = document.getElementById('withdrawConsentBtn');
-    
-    // AI Mode Elements
-    const aiConsentOverlay = document.getElementById('aiConsentOverlay');
-    const btnAiAgree = document.getElementById('btnAiAgree');
-    const btnAiCancel = document.getElementById('btnAiCancel');
     const aiModeCheckbox = document.getElementById('aiModeCheckbox');
-    let isAIModeEnabled = false;
-
+    const aiAnalysisBlock = document.getElementById('aiAnalysisBlock');
+    
+    let pendingAIModeRequest = false;
+    
     // --- Service Unavailable Logic ---
     function showServiceUnavailable(error) {
       let errorDetails = 'Неизвестная ошибка';
@@ -1004,104 +1035,86 @@
 
     // --- AI Mode Consent Logic ---
     function checkAIConsent() {
-      const hasAIConsent = localStorage.getItem(AI_CONSENT_KEY) === 'true';
-      if (hasAIConsent) {
-        isAIModeEnabled = true;
-        aiModeCheckbox.checked = true;
-        aiModeCheckbox.disabled = false;
-      } else {
-        isAIModeEnabled = false;
-        aiModeCheckbox.checked = false;
-        aiModeCheckbox.disabled = true;
-      }
-    }
-
-    function showAIConsentModal() {
-      aiConsentOverlay.classList.add('show');
-      document.body.classList.add('locked');
-    }
-
-    function hideAIConsentModal() {
-      aiConsentOverlay.classList.remove('show');
-      document.body.classList.remove('locked');
+      return localStorage.getItem(AI_CONSENT_KEY) === 'true';
     }
 
     function giveAIConsent() {
       localStorage.setItem(AI_CONSENT_KEY, 'true');
-      isAIModeEnabled = true;
       aiModeCheckbox.checked = true;
-      aiModeCheckbox.disabled = false;
-      hideAIConsentModal();
-      
-      // Show confirmation
-      const notification = document.createElement('div');
-      notification.textContent = '✨ ИИ-режим активирован. Данные будут использоваться для обучения модели.';
-      notification.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: var(--accent);
-        color: white;
-        padding: 12px 20px;
-        border-radius: 12px;
-        font-size: 14px;
-        z-index: 10002;
-        animation: fadeInOut 3s ease forwards;
-      `;
-      document.body.appendChild(notification);
-      setTimeout(() => notification.remove(), 3000);
-    }
-
-    function declineAIConsent() {
-      hideAIConsentModal();
-      // Checkbox remains disabled and unchecked
-      aiModeCheckbox.checked = false;
-      isAIModeEnabled = false;
-    }
-
-    // Add animation for notification
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes fadeInOut {
-        0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
-        15% { opacity: 1; transform: translateX(-50%) translateY(0); }
-        85% { opacity: 1; transform: translateX(-50%) translateY(0); }
-        100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      hideAIConsentOverlay();
+      // Если был запрос на включение ИИ-режима, выполняем проверку IP снова
+      if (pendingAIModeRequest && window.latestData) {
+        const currentIp = document.getElementById('ipInput').value.trim() || currentUserIP;
+        fetchIP(currentIp);
       }
-    `;
-    document.head.appendChild(style);
+      pendingAIModeRequest = false;
+    }
+
+    function showAIConsentOverlay() {
+      aiConsentOverlay.classList.add('show');
+      document.body.classList.add('locked');
+    }
+
+    function hideAIConsentOverlay() {
+      aiConsentOverlay.classList.remove('show');
+      document.body.classList.remove('locked');
+    }
+
+    // --- AI Mode Checkbox Handler ---
+    aiModeCheckbox.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        if (!checkAIConsent()) {
+          // Показываем модальное окно с запросом согласия
+          pendingAIModeRequest = true;
+          showAIConsentOverlay();
+          e.target.checked = false;
+        } else {
+          // Если согласие уже есть, просто включаем режим и перезапрашиваем данные
+          if (window.latestData) {
+            const currentIp = document.getElementById('ipInput').value.trim() || currentUserIP;
+            fetchIP(currentIp);
+          }
+        }
+      } else {
+        // Если выключили ИИ-режим, перезапрашиваем данные без ИИ
+        if (window.latestData) {
+          const currentIp = document.getElementById('ipInput').value.trim() || currentUserIP;
+          fetchIP(currentIp);
+        }
+      }
+    });
+
+    btnAIAgree.addEventListener('click', giveAIConsent);
+    btnAICancel.addEventListener('click', () => {
+      hideAIConsentOverlay();
+      pendingAIModeRequest = false;
+      aiModeCheckbox.checked = false;
+    });
 
     // --- Consent Logic ---
     function checkConsent() {
       const hasConsent = localStorage.getItem(CONSENT_KEY) === 'true';
       if (hasConsent) {
         hideOverlay();
-        checkAIConsent(); // Check AI consent after main consent
         fetchIP(); // Start data fetching only if consent exists
       } else {
         showOverlay();
-        aiModeCheckbox.disabled = true;
-        aiModeCheckbox.checked = false;
       }
     }
 
     function giveConsent() {
       localStorage.setItem(CONSENT_KEY, 'true');
       hideOverlay();
-      checkAIConsent();
       fetchIP();
     }
 
     function withdrawConsent() {
       if (confirm('Вы уверены, что хотите отозвать согласие на обработку персональных данных? После этого функциональность сервиса будет ограничена.')) {
         localStorage.removeItem(CONSENT_KEY);
-        localStorage.removeItem(AI_CONSENT_KEY); // Also remove AI consent
+        localStorage.removeItem(AI_CONSENT_KEY);
         window.latestData = null;
         resetUI();
-        isAIModeEnabled = false;
         aiModeCheckbox.checked = false;
-        aiModeCheckbox.disabled = true;
         showOverlay();
       }
     }
@@ -1109,21 +1122,11 @@
     function showOverlay() {
       consentOverlay.classList.add('show');
       document.body.classList.add('locked');
-      consentOverlay.style.display = 'flex';
-      setTimeout(() => {
-        consentOverlay.style.opacity = '1';
-        consentOverlay.style.pointerEvents = 'all';
-      }, 10);
     }
 
     function hideOverlay() {
-      consentOverlay.style.opacity = '0';
-      consentOverlay.style.pointerEvents = 'none';
+      consentOverlay.classList.remove('show');
       document.body.classList.remove('locked');
-      setTimeout(() => {
-        consentOverlay.classList.remove('show');
-        consentOverlay.style.display = 'none';
-      }, 300);
     }
 
     function resetUI() {
@@ -1144,6 +1147,7 @@
       document.getElementById('infoGrid').innerHTML = '';
       document.getElementById('rawJson').textContent = '';
       document.getElementById('mapFrame').srcdoc = '';
+      aiAnalysisBlock.style.display = 'none';
       
       // Clear input
       document.getElementById('ipInput').value = '';
@@ -1232,6 +1236,25 @@
         reasonsUl.appendChild(li);
       });
 
+      // AI Analysis Block
+      if (data.ai_analysis) {
+        aiAnalysisBlock.style.display = 'block';
+        const aiContent = document.getElementById('aiContent');
+        aiContent.innerHTML = data.ai_analysis;
+      } else if (aiModeCheckbox.checked && data.ai_available === false) {
+        aiAnalysisBlock.style.display = 'block';
+        const aiContent = document.getElementById('aiContent');
+        aiContent.innerHTML = '<div class="ai-not-available">⚡ ИИ-анализ временно недоступен. Попробуйте позже.</div>';
+      } else if (!aiModeCheckbox.checked) {
+        aiAnalysisBlock.style.display = 'none';
+      } else if (data.ai_available === false) {
+        aiAnalysisBlock.style.display = 'block';
+        const aiContent = document.getElementById('aiContent');
+        aiContent.innerHTML = '<div class="ai-not-available">🔧 ИИ-режим активирован, но анализ пока не доступен для этого IP.</div>';
+      } else {
+        aiAnalysisBlock.style.display = 'none';
+      }
+
       // Raw JSON
       const raw = document.getElementById('rawJson'); raw.textContent = JSON.stringify(data, null, 2);
 
@@ -1291,10 +1314,12 @@
       const params = new URLSearchParams();
       params.append('tz', browserTz);
       if (ip) params.append('ip', ip);
-      // Add AI mode flag if enabled
-      if (isAIModeEnabled) {
+      
+      // Добавляем параметр ai_mode если включен чекбокс
+      if (aiModeCheckbox.checked && checkAIConsent()) {
         params.append('ai_mode', 'true');
       }
+      
       const url = `${endpointBase}?${params.toString()}`;
       try{
         toggleLoading(true);
@@ -1347,31 +1372,6 @@
     });
 
     document.getElementById('ipInput').addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ document.getElementById('checkBtn').click(); } });
-    
-    // AI Mode Checkbox Handler
-    aiModeCheckbox.addEventListener('change', (e) => {
-      if (e.target.checked) {
-        // If trying to enable AI mode, check if consent exists
-        const hasAIConsent = localStorage.getItem(AI_CONSENT_KEY) === 'true';
-        if (!hasAIConsent) {
-          showAIConsentModal();
-          // Reset checkbox state while modal is shown
-          aiModeCheckbox.checked = false;
-        } else {
-          isAIModeEnabled = true;
-          // Refresh data with AI mode
-          fetchIP(document.getElementById('ipInput').value.trim() || null);
-        }
-      } else {
-        isAIModeEnabled = false;
-        // Refresh data without AI mode
-        fetchIP(document.getElementById('ipInput').value.trim() || null);
-      }
-    });
-
-    // AI Modal Buttons
-    btnAiAgree.addEventListener('click', giveAIConsent);
-    btnAiCancel.addEventListener('click', declineAIConsent);
 
     // Consent Button Listener
     btnAgree.addEventListener('click', giveConsent);
