@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="ru">
+<html lang="be">
 <head>
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <meta charset="utf-8" />
   <meta name="google-site-verification" content="tVwudOWiYvPzPKKSClf-WBmFpWlyUTZLHUUk-3ZGz1k" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>IP Info — lgeoip.cloudpub.ru</title>
-  <meta name="description" content="Интерактивная страница с информацией о IP: геолокация, провайдер, ASN, сеть и карта." />
+  <meta name="description" content="Інтэрактыўная старонка з інфармацыяй пра IP: геалакацыя, правайдар, ASN, сетка і карта." />
   <style>
     :root{
       --bg: #ffffff;
@@ -26,7 +26,7 @@
     *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
     html,body{height:100%;margin:0;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, system-ui, sans-serif;color:var(--fg);background:var(--bg);font-size: 16px;line-height: 1.5;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
     
-    /* Блокировка скролла при открытом модальном окне */
+    /* Блокіроўка скрола пры адкрытым мадальным акне */
     body.locked { overflow: hidden; }
 
     /* Page layout */
@@ -364,7 +364,7 @@
       .info-grid{grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));}
     }
 
-    /* Dark mode support - исправлено для модальных окон */
+    /* Dark mode support */
     @media (prefers-color-scheme: dark){
       :root{
         --bg: #0f0f0f;
@@ -460,7 +460,48 @@
       text-decoration: underline;
     }
     
-    /* Неприметная ссылка на инфо-страницу */
+    /* Language Switcher */
+    .lang-switcher {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      background: rgba(0,0,0,0.04);
+      padding: 4px;
+      border-radius: 20px;
+      position: relative;
+    }
+    
+    .lang-btn {
+      padding: 6px 16px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .lang-btn:hover {
+      color: var(--accent);
+    }
+    
+    .lang-btn.active {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 2px 8px rgba(0,87,250,0.3);
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      .lang-switcher {
+        background: rgba(255,255,255,0.08);
+      }
+    }
+    
+    /* Непрыкметная спасылка на інфа-старонку */
     .project-info-link {
       position: absolute;
       bottom: 8px;
@@ -484,7 +525,7 @@
       }
     }
 
-    /* --- CONSENT MODAL - ИСПРАВЛЕНО --- */
+    /* --- CONSENT MODAL --- */
     .consent-overlay {
       position: fixed;
       top: 0;
@@ -820,35 +861,35 @@
   <div id="serviceUnavailableOverlay" class="service-unavailable-overlay">
     <div class="service-unavailable-modal">
       <div class="service-unavailable-icon">🚫</div>
-      <div class="service-unavailable-title">Сервис недоступен</div>
+      <div class="service-unavailable-title" data-i18n="serviceUnavailable">Сэрвіс недаступны</div>
       <div class="service-unavailable-text">
-        <p>Не удалось подключиться к серверу.</p>
-        <p>Пожалуйста, повторите попытку позже.</p>
+        <p data-i18n="connectionError">Не ўдалося падключыцца да сервера.</p>
+        <p data-i18n="tryLater">Калі ласка, паўтарыце спробу пазней.</p>
       </div>
       <div class="service-unavailable-details" id="unavailableDetails">
-        <!-- Детали ошибки будут вставлены сюда -->
+        <!-- Дэталі памылкі будуць устаўлены сюды -->
       </div>
-      <button id="retryBtn" class="btn-retry">Повторить попытку</button>
+      <button id="retryBtn" class="btn-retry" data-i18n="retry">Паўтарыць спробу</button>
     </div>
   </div>
 
-  <!-- CONSENT OVERLAY (ИСПРАВЛЕНО) -->
+  <!-- CONSENT OVERLAY -->
   <div id="consentOverlay" class="consent-overlay">
     <div class="consent-modal">
       <div class="consent-icon">🛡️</div>
-      <div class="consent-title">Согласие на обработку данных</div>
+      <div class="consent-title" data-i18n="consentTitle">Згода на апрацоўку даных</div>
       <div class="consent-text">
-        <p>Для предоставления информации о сетевом соединении нам необходимо обработать ваш IP-адрес.</p>
-        <p>В соответствии с законодательством Республики Беларусь, IP-адрес относится к <strong>персональным данным</strong>.</p>
-        <p style="font-size: 13px; margin-top: 10px; padding: 10px; background: rgba(0,87,250,0.1); border-radius: 8px;">
-          Нажимая «Согласен», вы даете согласие на автоматизированную обработку вашего IP-адреса с целью определения геолокации и параметров провайдера.
+        <p data-i18n="consentText1">Для прадастаўлення інфармацыі пра сеткавае злучэнне нам неабходна апрацаваць ваш IP-адрас.</p>
+        <p data-i18n="consentText2">У адпаведнасці з заканадаўствам Рэспублікі Беларусь, IP-адрас адносіцца да <strong>асабістых даных</strong>.</p>
+        <p style="font-size: 13px; margin-top: 10px; padding: 10px; background: rgba(0,87,250,0.1); border-radius: 8px;" data-i18n="consentText3">
+          Націскаючы «Згодны», вы даеце згоду на аўтаматызаваную апрацоўку вашага IP-адраса з мэтай вызначэння геалакацыі і параметраў правайдара.
         </p>
-        <a href="https://sites.google.com/view/lgeoip/docs/privacy-policy" target="_blank" class="privacy-link">
-          Политика конфиденциальности
+        <a href="https://sites.google.com/view/lgeoip/docs/privacy-policy" target="_blank" class="privacy-link" data-i18n="privacyPolicy">
+          Палітыка канфідэнцыяльнасці
         </a>
       </div>
       <div class="consent-actions">
-        <button id="btnAgree" class="btn-agree">Согласен, продолжить</button>
+        <button id="btnAgree" class="btn-agree" data-i18n="agree">Згодны, працягнуць</button>
       </div>
     </div>
   </div>
@@ -857,23 +898,23 @@
   <div id="aiConsentOverlay" class="ai-consent-overlay">
     <div class="ai-consent-modal">
       <div class="ai-consent-icon">🤖✨</div>
-      <div class="ai-consent-title">Анализ с ✦lgeoAI (Бета)</div>
+      <div class="ai-consent-title" data-i18n="aiConsentTitle">Аналіз з ✦lgeoAI (Бэта)</div>
       <div class="ai-consent-text">
-        <p>ИИ-режим использует искусственный интеллект для более глубокого анализа анонимизации IP-адресов.</p>
+        <p data-i18n="aiConsentText1">Рэжым ШВІ выкарыстоўвае штучны інтэлект для больш глыбокага аналізу ананімізацыі IP-адрасоў.</p>
         <div class="ai-consent-data-list">
-          <p><strong>📊 Для обучения локальной ИИ модели собираются следующие данные:</strong></p>
+          <p data-i18n="aiConsentDataTitle"><strong>📊 Для навучання лакальнай мадэлі ШВІ збіраюцца наступныя даныя:</strong></p>
           <ul>
-            <li>Факторы, указывающие на использование средств анонимизации (прокси, VPN, Tor)</li>
-            <li>Результаты анализа анонимизации</li>
-            <li>Технические параметры соединения</li>
+            <li data-i18n="aiConsentData1">Фактары, якія паказваюць на выкарыстанне сродкаў ананімізацыі (проксі, VPN, Tor)</li>
+            <li data-i18n="aiConsentData2">Вынікі аналізу ананімізацыі</li>
+            <li data-i18n="aiConsentData3">Тэхнічныя параметры злучэння</li>
           </ul>
-          <p style="margin-top: 10px; font-size: 12px;">⚠️ Данные используются <strong>исключительно для обучения локальной ИИ модели</strong> и не передаются третьим лицам.</p>
+          <p style="margin-top: 10px; font-size: 12px;" data-i18n="aiConsentDataWarning">⚠️ Даныя выкарыстоўваюцца <strong>выключна для навучання лакальнай мадэлі ШВІ</strong> і не перадаюцца трэцім асобам.</p>
         </div>
-        <p style="margin-top: 10px;">Нажимая «Активировать ИИ-режим», вы даете согласие на сбор указанных данных.</p>
+        <p style="margin-top: 10px;" data-i18n="aiConsentText2">Націскаючы «Актываваць рэжым ШВІ», вы даеце згоду на збор указаных даных.</p>
       </div>
       <div class="consent-actions">
-        <button id="btnAIAgree" class="btn-ai-agree">Активировать ИИ-режим</button>
-        <button id="btnAICancel" class="btn-ai-cancel">Отмена</button>
+        <button id="btnAIAgree" class="btn-ai-agree" data-i18n="aiAgree">Актываваць рэжым ШВІ</button>
+        <button id="btnAICancel" class="btn-ai-cancel" data-i18n="cancel">Скасаваць</button>
       </div>
     </div>
   </div>
@@ -885,11 +926,11 @@
       <div>
         <header class="card">
           <div class="logo logo-anim">
-            <div class="brand">Ваш IP: <span id="currentIP" style="color:var(--accent)">—</span></div>
-            <div class="subtitle" id="ipTypeIndicator">Ожидание согласия...</div>
+            <div class="brand"><span data-i18n="yourIP">Ваш IP</span>: <span id="currentIP" style="color:var(--accent)">—</span></div>
+            <div class="subtitle" id="ipTypeIndicator" data-i18n="waitingConsent">Чаканне згоды...</div>
           </div>
           <div style="text-align:right; flex-shrink: 0;">
-            <div id="ipStatus" class="ip-status your" style="display:none">Ваш IP</div>
+            <div id="ipStatus" class="ip-status your" style="display:none" data-i18n="yourIPShort">Ваш IP</div>
           </div>
         </header>
 
@@ -897,11 +938,11 @@
           <div class="ip-row">
             <div style="flex:1; min-width:0;">
               <div class="ip-bubble" id="ipAddr">—</div>
-              <div class="small-meta" id="ipSummary">Ожидание проверки…</div>
+              <div class="small-meta" id="ipSummary" data-i18n="waitingCheck">Чаканне праверкі…</div>
             </div>
             <div style="text-align:right; flex-shrink:0;">
               <img id="flag" class="flag" src="" alt="flag" style="display:none" />
-              <div style="margin-top:8px" class="meta-title">Город, регион</div>
+              <div style="margin-top:8px" class="meta-title" data-i18n="cityRegion">Горад, рэгіён</div>
               <div id="cityRegion" class="v">—</div>
             </div>
           </div>
@@ -911,14 +952,14 @@
           </div>
 
           <div class="anonymization-block" id="anonymizationBlock">
-            <div class="anonymization-title">Вероятность анонимизации: <span class="anonymization-prob" id="anonProb">—</span>%</div>
+            <div class="anonymization-title"><span data-i18n="anonProb">Верагоднасць ананімізацыі</span>: <span class="anonymization-prob" id="anonProb">—</span>%</div>
             <ul class="anonymization-reasons" id="anonReasons"></ul>
           </div>
 
           <!-- AI Analysis Block -->
           <div class="ai-analysis-block" id="aiAnalysisBlock" style="display: none;">
             <div class="ai-title">
-              🤖 Анализ ✦lgeoAI <span class="ai-badge">Бета</span>
+              🤖 <span data-i18n="aiAnalysis">Аналіз ✦lgeoAI</span> <span class="ai-badge" data-i18n="beta">Бэта</span>
             </div>
             <div class="ai-content" id="aiContent">
               <!-- AI analysis results will be inserted here -->
@@ -928,20 +969,20 @@
           <div class="controls">
             <div class="ai-checkbox-wrapper" id="aiCheckboxWrapper">
               <input type="checkbox" id="aiModeCheckbox" />
-              <label for="aiModeCheckbox">Анализ с ✦lgeoAI (Бета)</label>
+              <label for="aiModeCheckbox" data-i18n="aiMode">Аналіз з ✦lgeoAI (Бэта)</label>
             </div>
-            <input id="ipInput" type="text" placeholder="Проверить другой IP (например 8.8.8.8)" aria-label="IP" />
-            <button id="checkBtn">Проверить</button>
-            <button id="copyBtn" class="ghost">Копировать JSON</button>
+            <input id="ipInput" type="text" placeholder="Праверыць іншы IP (напрыклад 8.8.8.8)" aria-label="IP" />
+            <button id="checkBtn" data-i18n="check">Праверыць</button>
+            <button id="copyBtn" class="ghost" data-i18n="copyJSON">Капіяваць JSON</button>
           </div>
 
           <div class="json-box" id="rawJson" hidden></div>
           <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
             <label style="font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px;cursor:pointer;">
               <input id="toggleJson" type="checkbox" style="margin:0;width:16px;height:16px;cursor:pointer;"/> 
-              Показать сырой JSON
+              <span data-i18n="showRawJSON">Паказаць сыры JSON</span>
             </label>
-            <button id="downloadBtn" class="ghost">Скачать JSON</button>
+            <button id="downloadBtn" class="ghost" data-i18n="downloadJSON">Спампаваць JSON</button>
           </div>
         </section>
 
@@ -951,18 +992,18 @@
         <div class="card">
           <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;">
             <div style="flex:1; min-width:120px;">
-              <div class="meta-title">Координаты</div>
+              <div class="meta-title" data-i18n="coordinates">Каардынаты</div>
               <div class="v" id="coords">—</div>
             </div>
             <div style="text-align:right; flex:1; min-width:120px;">
-              <div class="meta-title">Часовой пояс</div>
+              <div class="meta-title" data-i18n="timezone">Часавы пояс</div>
               <div class="v" id="tz">—</div>
             </div>
           </div>
 
           <div class="map-frame" id="mapWrap" style="margin-top:14px">
             <!-- iframe вставляется динамически -->
-            <iframe id="mapFrame" style="width:100%;height:100%;border:0" loading="lazy" referrerpolicy="no-referrer" title="Карта расположения IP"></iframe>
+            <iframe id="mapFrame" style="width:100%;height:100%;border:0" loading="lazy" referrerpolicy="no-referrer" title="Карта размяшчэння IP"></iframe>
           </div>
 
           <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:center;justify-content:space-between;">
@@ -971,7 +1012,7 @@
               <div class="v" id="ispAsn">—</div>
             </div>
             <div style="text-align:right; flex:1; min-width:140px;">
-              <div class="meta-title">Сеть</div>
+              <div class="meta-title" data-i18n="network">Сетка</div>
               <div class="v" id="network">—</div>
             </div>
           </div>
@@ -985,12 +1026,186 @@
   <footer class="footer">
     .-.. --. . --- .. .--.
     <div class="footer-links">
-      <a href="#" id="withdrawConsentBtn" class="footer-link">Отозвать согласие</a>
+      <a href="#" id="withdrawConsentBtn" class="footer-link" data-i18n="withdrawConsent">Адклікаць згоду</a>
     </div>
-    <a href="https://sites.google.com/view/lgeoip/main/en" target="_blank" class="project-info-link" title="Информация о проекте">🛈 О проекте</a>
+    
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="be">BE</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+    
+    <a href="https://sites.google.com/view/lgeoip/main/en" target="_blank" class="project-info-link" title="Інфармацыя пра праект">🛈 <span data-i18n="aboutProject">Пра праект</span></a>
   </footer>
 
   <script>
+    // Translations
+    const translations = {
+      be: {
+        serviceUnavailable: "Сэрвіс недаступны",
+        connectionError: "Не ўдалося падключыцца да сервера.",
+        tryLater: "Калі ласка, паўтарыце спробу пазней.",
+        retry: "Паўтарыць спробу",
+        consentTitle: "Згода на апрацоўку даных",
+        consentText1: "Для прадастаўлення інфармацыі пра сеткавае злучэнне нам неабходна апрацаваць ваш IP-адрас.",
+        consentText2: "У адпаведнасці з заканадаўствам Рэспублікі Беларусь, IP-адрас адносіцца да <strong>асабістых даных</strong>.",
+        consentText3: "Націскаючы «Згодны», вы даеце згоду на аўтаматызаваную апрацоўку вашага IP-адраса з мэтай вызначэння геалакацыі і параметраў правайдара.",
+        privacyPolicy: "Палітыка канфідэнцыяльнасці",
+        agree: "Згодны, працягнуць",
+        aiConsentTitle: "Аналіз з ✦lgeoAI (Бэта)",
+        aiConsentText1: "Рэжым ШВІ выкарыстоўвае штучны інтэлект для больш глыбокага аналізу ананімізацыі IP-адрасоў.",
+        aiConsentDataTitle: "<strong>📊 Для навучання лакальнай мадэлі ШВІ збіраюцца наступныя даныя:</strong>",
+        aiConsentData1: "Фактары, якія паказваюць на выкарыстанне сродкаў ананімізацыі (проксі, VPN, Tor)",
+        aiConsentData2: "Вынікі аналізу ананімізацыі",
+        aiConsentData3: "Тэхнічныя параметры злучэння",
+        aiConsentDataWarning: "⚠️ Даныя выкарыстоўваюцца <strong>выключна для навучання лакальнай мадэлі ШВІ</strong> і не перадаюцца трэцім асобам.",
+        aiConsentText2: "Націскаючы «Актываваць рэжым ШВІ», вы даеце згоду на збор указаных даных.",
+        aiAgree: "Актываваць рэжым ШВІ",
+        cancel: "Скасаваць",
+        yourIP: "Ваш IP",
+        waitingConsent: "Чаканне згоды...",
+        yourIPShort: "Ваш IP",
+        waitingCheck: "Чаканне праверкі…",
+        cityRegion: "Горад, рэгіён",
+        anonProb: "Верагоднасць ананімізацыі",
+        aiAnalysis: "Аналіз ✦lgeoAI",
+        beta: "Бэта",
+        aiMode: "Аналіз з ✦lgeoAI (Бэта)",
+        check: "Праверыць",
+        copyJSON: "Капіяваць JSON",
+        showRawJSON: "Паказаць сыры JSON",
+        downloadJSON: "Спампаваць JSON",
+        coordinates: "Каардынаты",
+        timezone: "Часавы пояс",
+        network: "Сетка",
+        withdrawConsent: "Адклікаць згоду",
+        aboutProject: "Пра праект",
+        thirdPartyIP: "Старонні IP",
+        thirdPartyIPInfo: "Інфармацыя пра старонні IP",
+        currentIP: "Ваш бягучы IP-адрас",
+        loading: "Загрузка…",
+        noData: "Даных няма",
+        jsonCopied: "JSON скапіяваны",
+        copyFailed: "Не ўдалося скапіяваць",
+        confirmWithdraw: "Вы ўпэўнены, што хочаце адклікаць згоду на апрацоўку асабістых даных? Пасля гэтага функцыянальнасць сэрвісу будзе абмежавана.",
+        aiUnavailable: "⚡ Аналіз ШВІ часова недаступны. Паспрабуйце пазней.",
+        aiNotAvailable: "🔧 Рэжым ШВІ актываваны, але аналіз пакуль недаступны для гэтага IP.",
+        location: "Месцазнаходжанне",
+        country: "Краіна",
+        city: "Горад",
+        region: "Рэгіён",
+        postalCode: "Паштовы індэкс",
+        latitude: "Шырата",
+        longitude: "Даўгата",
+        browserTimezone: "Часавы пояс браўзера",
+        timezoneMatch: "Супадзенне часавых паясоў",
+        yes: "Так",
+        no: "Не",
+        errorDetails: "Дэталі памылкі",
+        unknownError: "Невядомая памылка",
+        checkInternet: "Праверце інтэрнэт-злучэнне"
+      },
+      en: {
+        serviceUnavailable: "Service Unavailable",
+        connectionError: "Failed to connect to the server.",
+        tryLater: "Please try again later.",
+        retry: "Retry",
+        consentTitle: "Data Processing Consent",
+        consentText1: "To provide information about the network connection, we need to process your IP address.",
+        consentText2: "In accordance with the legislation of the Republic of Belarus, an IP address is considered <strong>personal data</strong>.",
+        consentText3: "By clicking 'Agree', you consent to the automated processing of your IP address for the purpose of determining geolocation and provider parameters.",
+        privacyPolicy: "Privacy Policy",
+        agree: "Agree, continue",
+        aiConsentTitle: "Analysis with ✦lgeoAI (Beta)",
+        aiConsentText1: "AI mode uses artificial intelligence for deeper analysis of IP address anonymization.",
+        aiConsentDataTitle: "<strong>📊 The following data is collected for training the local AI model:</strong>",
+        aiConsentData1: "Factors indicating the use of anonymization tools (proxy, VPN, Tor)",
+        aiConsentData2: "Anonymization analysis results",
+        aiConsentData3: "Technical connection parameters",
+        aiConsentDataWarning: "⚠️ Data is used <strong>exclusively for training the local AI model</strong> and is not shared with third parties.",
+        aiConsentText2: "By clicking 'Activate AI Mode', you consent to the collection of the specified data.",
+        aiAgree: "Activate AI Mode",
+        cancel: "Cancel",
+        yourIP: "Your IP",
+        waitingConsent: "Waiting for consent...",
+        yourIPShort: "Your IP",
+        waitingCheck: "Waiting for check…",
+        cityRegion: "City, region",
+        anonProb: "Anonymization probability",
+        aiAnalysis: "Analysis ✦lgeoAI",
+        beta: "Beta",
+        aiMode: "Analysis with ✦lgeoAI (Beta)",
+        check: "Check",
+        copyJSON: "Copy JSON",
+        showRawJSON: "Show raw JSON",
+        downloadJSON: "Download JSON",
+        coordinates: "Coordinates",
+        timezone: "Timezone",
+        network: "Network",
+        withdrawConsent: "Withdraw consent",
+        aboutProject: "About project",
+        thirdPartyIP: "Third-party IP",
+        thirdPartyIPInfo: "Third-party IP information",
+        currentIP: "Your current IP address",
+        loading: "Loading…",
+        noData: "No data",
+        jsonCopied: "JSON copied",
+        copyFailed: "Failed to copy",
+        confirmWithdraw: "Are you sure you want to withdraw consent for personal data processing? After this, the service functionality will be limited.",
+        aiUnavailable: "⚡ AI analysis is temporarily unavailable. Please try again later.",
+        aiNotAvailable: "🔧 AI mode is activated, but analysis is not yet available for this IP.",
+        location: "Location",
+        country: "Country",
+        city: "City",
+        region: "Region",
+        postalCode: "Postal Code",
+        latitude: "Latitude",
+        longitude: "Longitude",
+        browserTimezone: "Browser Timezone",
+        timezoneMatch: "Timezone Match",
+        yes: "Yes",
+        no: "No",
+        errorDetails: "Error details",
+        unknownError: "Unknown error",
+        checkInternet: "Check internet connection"
+      }
+    };
+
+    // Current language
+    let currentLang = localStorage.getItem('preferred_language') || 'be';
+
+    // Apply translations
+    function applyTranslations(lang) {
+      currentLang = lang;
+      localStorage.setItem('preferred_language', lang);
+      
+      // Update all elements with data-i18n attribute
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+      
+      // Update active button
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+      
+      // Update HTML lang attribute
+      document.documentElement.lang = lang;
+    }
+
+    // Language switcher event listeners
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyTranslations(btn.getAttribute('data-lang'));
+      });
+    });
+
+    // Initialize language on page load
+    applyTranslations(currentLang);
+
     // Helpers
     const endpointBase = 'https://lgeoip.cloudpub.ru/json';
     let currentUserIP = null;
@@ -1015,15 +1230,15 @@
     
     // --- Service Unavailable Logic ---
     function showServiceUnavailable(error) {
-      let errorDetails = 'Неизвестная ошибка';
+      let errorDetails = translations[currentLang].unknownError;
       
       if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
-        errorDetails = 'Не удалось подключиться к серверу. Проверьте интернет-соединение.';
+        errorDetails = translations[currentLang].checkInternet;
       } else if (error.message) {
         errorDetails = error.message;
       }
       
-      unavailableDetails.textContent = `Детали ошибки: ${errorDetails}`;
+      unavailableDetails.textContent = `${translations[currentLang].errorDetails}: ${errorDetails}`;
       serviceUnavailableOverlay.classList.add('show');
       document.body.classList.add('locked');
     }
@@ -1109,7 +1324,7 @@
     }
 
     function withdrawConsent() {
-      if (confirm('Вы уверены, что хотите отозвать согласие на обработку персональных данных? После этого функциональность сервиса будет ограничена.')) {
+      if (confirm(translations[currentLang].confirmWithdraw)) {
         localStorage.removeItem(CONSENT_KEY);
         localStorage.removeItem(AI_CONSENT_KEY);
         window.latestData = null;
@@ -1132,10 +1347,10 @@
     function resetUI() {
       // Reset all displayed data to default state
       document.getElementById('currentIP').textContent = '—';
-      document.getElementById('ipTypeIndicator').textContent = 'Ожидание согласия...';
+      document.getElementById('ipTypeIndicator').textContent = translations[currentLang].waitingConsent;
       document.getElementById('ipStatus').style.display = 'none';
       document.getElementById('ipAddr').textContent = '—';
-      document.getElementById('ipSummary').textContent = 'Ожидание согласия…';
+      document.getElementById('ipSummary').textContent = translations[currentLang].waitingCheck;
       document.getElementById('cityRegion').textContent = '—';
       document.getElementById('flag').style.display = 'none';
       document.getElementById('coords').textContent = '—';
@@ -1163,13 +1378,13 @@
       const indicatorEl = document.getElementById('ipTypeIndicator');
       
       if (isUserIP) {
-        statusEl.textContent = 'Ваш IP';
+        statusEl.textContent = translations[currentLang].yourIPShort;
         statusEl.className = 'ip-status your';
-        indicatorEl.textContent = 'Ваш текущий IP-адрес';
+        indicatorEl.textContent = translations[currentLang].currentIP;
       } else {
-        statusEl.textContent = 'Сторонний IP';
+        statusEl.textContent = translations[currentLang].thirdPartyIP;
         statusEl.className = 'ip-status other';
-        indicatorEl.textContent = 'Информация о стороннем IP';
+        indicatorEl.textContent = translations[currentLang].thirdPartyIPInfo;
       }
       statusEl.style.display = 'inline-flex';
     }
@@ -1206,18 +1421,18 @@
       // Info grid
       const grid = document.getElementById('infoGrid'); grid.innerHTML = '';
       const pairs = [
-        ['Country', data.country ? `${data.country} (${data.country_iso||''})` : '—'],
-        ['City', data.city || '—'],
-        ['Region', data.region || '—'],
-        ['Postal Code', data.postal_code || '—'],
-        ['Latitude', data.latitude ?? '—'],
-        ['Longitude', data.longitude ?? '—'],
-        ['Timezone', data.timezone || '—'],
-        ['Browser Timezone', data.browser_timezone || '—'],
-        ['Timezone Match', data.timezone_match ? 'Yes' : 'No'],
+        [translations[currentLang].country, data.country ? `${data.country} (${data.country_iso||''})` : '—'],
+        [translations[currentLang].city, data.city || '—'],
+        [translations[currentLang].region, data.region || '—'],
+        [translations[currentLang].postalCode, data.postal_code || '—'],
+        [translations[currentLang].latitude, data.latitude ?? '—'],
+        [translations[currentLang].longitude, data.longitude ?? '—'],
+        [translations[currentLang].timezone, data.timezone || '—'],
+        [translations[currentLang].browserTimezone, data.browser_timezone || '—'],
+        [translations[currentLang].timezoneMatch, data.timezone_match ? translations[currentLang].yes : translations[currentLang].no],
         ['ISP', data.isp || '—'],
         ['ASN', data.asn || '—'],
-        ['Network', data.network || '—']
+        [translations[currentLang].network, data.network || '—']
       ];
 
       pairs.forEach(([k,v])=>{
@@ -1244,13 +1459,13 @@
       } else if (aiModeCheckbox.checked && data.ai_available === false) {
         aiAnalysisBlock.style.display = 'block';
         const aiContent = document.getElementById('aiContent');
-        aiContent.innerHTML = '<div class="ai-not-available">⚡ ИИ-анализ временно недоступен. Попробуйте позже.</div>';
+        aiContent.innerHTML = `<div class="ai-not-available">${translations[currentLang].aiUnavailable}</div>`;
       } else if (!aiModeCheckbox.checked) {
         aiAnalysisBlock.style.display = 'none';
       } else if (data.ai_available === false) {
         aiAnalysisBlock.style.display = 'block';
         const aiContent = document.getElementById('aiContent');
-        aiContent.innerHTML = '<div class="ai-not-available">🔧 ИИ-режим активирован, но анализ пока не доступен для этого IP.</div>';
+        aiContent.innerHTML = `<div class="ai-not-available">${translations[currentLang].aiNotAvailable}</div>`;
       } else {
         aiAnalysisBlock.style.display = 'none';
       }
@@ -1298,7 +1513,7 @@
               }).addTo(map);
               
               L.marker([${lat}, ${lon}]).addTo(map)
-                .bindPopup('${data.city || "Местоположение"}<br>${data.ip || ""}')
+                .bindPopup('${data.city || translations[currentLang].location}<br>${data.ip || ""}')
                 .openPopup();
             <\/script>
           </body>
@@ -1340,7 +1555,18 @@
       }finally{toggleLoading(false)}
     }
 
-    function toggleLoading(on){ const btn=document.getElementById('checkBtn'); if(on){btn.disabled=true;btn.textContent='Загрузка…';btn.classList.add('loading');}else{btn.disabled=false;btn.textContent='Проверить';btn.classList.remove('loading');}}
+    function toggleLoading(on){ 
+      const btn=document.getElementById('checkBtn'); 
+      if(on){
+        btn.disabled=true;
+        btn.textContent=translations[currentLang].loading;
+        btn.classList.add('loading');
+      }else{
+        btn.disabled=false;
+        btn.textContent=translations[currentLang].check;
+        btn.classList.remove('loading');
+      }
+    }
 
     // UI bindings
     document.getElementById('checkBtn').addEventListener('click', ()=>{
@@ -1358,14 +1584,14 @@
     });
 
     document.getElementById('copyBtn').addEventListener('click', ()=>{
-      if(!window.latestData) return alert('Данных нет');
+      if(!window.latestData) return alert(translations[currentLang].noData);
       navigator.clipboard.writeText(JSON.stringify(window.latestData, null, 2)).then(()=>{
-        alert('JSON скопирован');
-      }).catch(()=>alert('Не удалось скопировать'));
+        alert(translations[currentLang].jsonCopied);
+      }).catch(()=>alert(translations[currentLang].copyFailed));
     });
 
     document.getElementById('downloadBtn').addEventListener('click', ()=>{
-      if(!window.latestData) return alert('Данных нет');
+      if(!window.latestData) return alert(translations[currentLang].noData);
       const blob = new Blob([JSON.stringify(window.latestData,null,2)],{type:'application/json'});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href = url; a.download = `ip-${window.latestData.ip||'data'}.json`; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
